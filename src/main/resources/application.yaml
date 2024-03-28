@@ -1,0 +1,107 @@
+management:
+  endpoints:
+    web:
+      base-path: /api/actuator/
+
+# Application info
+info:
+  name: 'Ideaportal'
+  description: 'Ideaportal main site'
+  version: '@project.version@'
+  time: '@maven.build.timestamp@'
+  app:
+    encoding: '@project.build.sourceEncoding@'
+    java:
+      source: '@java.version@'
+      target: '@java.version@'
+
+service:
+  shutdown:
+    graceful
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: "30s"
+  thymeleaf:
+    check-template-location: false # to prevent warning
+  #database
+  datasource:
+    username: ${MYSQL_USER:}
+    password: ${MYSQL_PASSWORD:}
+    continue-on-error: true # not working
+  jpa:
+    open-in-view: false #to prevent warning
+    show-sql: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: OFF # suppress errors in log when DatabaseStartupValidator trying to connect to database
+#----------------------------------------
+web-config:
+  website:
+    siteProtocol: "https"
+  multiSites:
+    ideaportal:
+      siteLangs: "ru"
+      siteLangInPath: false
+      siteDomain: "ideology.ru"
+      siteProtocol: "https"
+      siteStaticStoragePath: "file:/mnt/sites/ideaportal/input"
+      siteStoragePaths:
+        - "file:/mnt/sites/ideaportal/input"
+      siteInternalStoragePaths:
+        - "file:/mnt/sites/ideaportal/mediainfo"
+      createMetaOg: true
+      createMetaForIcons: true
+      useExternalUrlForImages: false
+      keywords:
+        key: "ideaportal.site.keywords"
+      description:
+        key: "ideaportal.site.description"
+      siteTitle:
+        key: "ideaportal.site.title"
+      nav:
+        - item:
+          key: "ideaportal.menu.home"
+          url: "index.htm"
+        - item:
+          key: "ideaportal.menu.articles"
+          url: "content.htm"
+        - item:
+          key: "ideaportal.menu.аphorisms"
+          url: "#"
+          subitems:
+            - item:
+              key: "ideaportal.menu.аphorisms.byauthor"
+              url: "fil_autn.htm"
+            - item:
+              key: "ideaportal.menu.аphorisms.bytopic"
+              url: "fil_tema.htm"
+            - item:
+              key: "ideaportal.menu.аphorisms.proetcontra"
+              url: "proet.htm"
+            - item:
+              key: "ideaportal.menu.аphorisms.favorite"
+              url: "favorite.htm"
+            - item:
+              key: "ideaportal.menu.аphorisms.search"
+              url: "search.htm"
+        - item:
+          key: "ideaportal.menu.аphorisms.sources"
+          url: "lit.htm"
+        - item:
+          key: "ideaportal.menu.аphorisms.about"
+          url: "aboutаphorisms.htm"
+        - item:
+          key: "ideaportal.menu.about.project"
+          url: "about.htm"
+        - item:
+          key: "ideaportal.menu.links"
+          url: "links.htm"
+
