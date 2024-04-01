@@ -14,7 +14,8 @@ info:
     java:
       source: '@java.version@'
       target: '@java.version@'
-
+server:
+  port: 8084
 service:
   shutdown:
     graceful
@@ -25,6 +26,7 @@ spring:
     check-template-location: false # to prevent warning
   #database
   datasource:
+    url: jdbc:mariadb://${DATABASE_ADDRESS}?useSSL=false&allowMultiQueries=true&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
     username: ${MYSQL_USER:}
     password: ${MYSQL_PASSWORD:}
     continue-on-error: true # not working

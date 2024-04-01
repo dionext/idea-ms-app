@@ -1,0 +1,15 @@
+logging:
+  config: classpath:${LOGBACK:logback-local.xml}
+  level:
+    root: info
+    com:
+      dionext: debug
+
+web-config:
+  multiSites:
+    ideaportal:
+      siteStaticStoragePath: "file:R:/doc/sites/ideaportal/input"
+      siteStoragePaths:
+        - "file:R:/doc/sites/ideaportal/input"
+      siteInternalStoragePaths:
+        - "file:R:/doc/sites/ideaportal/mediainfo"

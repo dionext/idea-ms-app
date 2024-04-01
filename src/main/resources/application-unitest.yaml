@@ -1,0 +1,24 @@
+logging:
+  config: classpath:${LOGBACK:logback-local.xml}
+  level:
+    root: info
+    com:
+      dionext: debug
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1;NON_KEYWORDS=KEY,VALUE
+    #driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      hbm2ddl:
+        auto: create
+web-config:
+  multiSites:
+    hiking:
+      siteStaticStoragePath: "file:I:/doc/sites/hiking/output"
+      siteStoragePaths:
+        - "file:R:/doc/sites/hiking/input"
+      siteInternalStoragePaths:
+        - "file:I:/doc/sites/hiking/mediainfo"
