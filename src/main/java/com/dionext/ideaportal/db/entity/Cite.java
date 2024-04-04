@@ -13,13 +13,17 @@ import java.util.Set;
 @Setter
 public class Cite {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     public String id;
 
     @ManyToOne()
     @JoinColumn(name = "author_id")
     public Author author;
+
+    // @Column(name = "author_id", insertable=false, updatable=false)
+    //public String authorId;
+
 
     @Lob
     @Column()

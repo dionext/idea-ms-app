@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class Bibliography {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private String id;
 

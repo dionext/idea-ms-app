@@ -8,6 +8,7 @@ import com.dionext.site.dto.SrcPageContent;
 import com.dionext.utils.Utils;
 import com.dionext.utils.exceptions.DioRuntimeException;
 import com.google.common.base.Strings;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,9 +28,15 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
 
     private AuthorRepository authorRepository;
 
+    private CiteCreatorService citeCreatorService;
+
     @Autowired
     public void setAuthorRepository(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+    @Autowired
+    public void setCiteCreatorService(CiteCreatorService citeCreatorService) {
+        this.citeCreatorService = citeCreatorService;
     }
 
 
@@ -64,7 +71,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
             String paginationStr = createPagination(pageInfo, allPagesCount);
             body.append(paginationStr);
             body.append("""
-                    <div class="ui-widget">
+                    <div align="center" class="ui-widget">
                       <input id="tags">
                       <label for="tags"> поиск автора</label>
                     </div>
@@ -86,6 +93,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
             if (author != null) {
                 this.pageInfo.setPageTitle(author.getNamep());
                 body.append(makeAuthorBlock(author, true));
+                body.append(citeCreatorService.makeCiteListByAuthor(author.getId()));
             } else {
                 throw new DioRuntimeException();
             }
@@ -125,7 +133,8 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
             if (!Strings.isNullOrEmpty(author.getPhoto())) {
                 str.append("<div>");
                 ImageDrawInfo img = new ImageDrawInfo();
-                img.setImagePath(pageInfo.getOffsetStringToImageLevel() + "images/foto/" + author.getPhoto());
+                //img.setImagePath(pageInfo.getOffsetStringToContextLevel() + "images/foto/" + author.getPhoto());
+                img.setImagePath("images/foto/" + author.getPhoto());
                 str.append(createImage(img));
                 str.append("</div>");
             }

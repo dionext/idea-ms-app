@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @NotNull(message = "cannot be empty")

@@ -56,17 +56,17 @@ public class BibliographyCreatorService extends IdeaportalPageCreatorService {
     private String makeItemBlock(Bibliography bibliography, boolean singlePage) {
         StringBuilder str = new StringBuilder();
         if (!singlePage) {
-            str.append("""
-                    <a href="
-                    """);
-            str.append(bibliography.getId());
-            str.append("""
-                    ">
-                    """);
+            //str.append("""
+            //        <a href="
+            //        """);
+            //str.append(bibliography.getId());
+            //str.append("""
+            //        ">
+            //        """);
             str.append(bibliography.getName());
-            str.append("""
-                    </a>
-                    """);
+            //str.append("""
+            //        </a>
+            //        """);
 
         } else {
             str.append("<br/>");

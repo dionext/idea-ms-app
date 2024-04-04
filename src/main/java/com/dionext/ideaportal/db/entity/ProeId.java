@@ -15,9 +15,9 @@ import java.util.Objects;
 @Setter
 public class ProeId implements Serializable {
     private static final long serialVersionUID = -876068764395666653L;
-    @Column(nullable = false)
-    private String proeCiteId;
-    @Column(nullable = false)
+    @Column(name = "pro_cite_id", nullable = false)
+    private String proCiteId;
+    @Column(name = "contra_cite_id", nullable = false)
     private String contraCiteId;
 
 
@@ -26,12 +26,12 @@ public class ProeId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ProeId entity = (ProeId) o;
-        return Objects.equals(this.proeCiteId, entity.proeCiteId) &&
+        return Objects.equals(this.proCiteId, entity.proCiteId) &&
                 Objects.equals(this.contraCiteId, entity.contraCiteId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(proeCiteId, contraCiteId);
+        return Objects.hash(proCiteId, contraCiteId);
     }
 }

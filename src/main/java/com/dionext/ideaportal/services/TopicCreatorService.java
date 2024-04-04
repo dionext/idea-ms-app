@@ -22,6 +22,12 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
     public void setTopicRepository(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
     }
+    private CiteCreatorService citeCreatorService;
+
+    @Autowired
+    public void setCiteCreatorService(CiteCreatorService citeCreatorService) {
+        this.citeCreatorService = citeCreatorService;
+    }
 
     public String createPage() {
         StringBuilder body = new StringBuilder();
@@ -40,19 +46,18 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
                     body.append("</ul>");
                 }
                 body.append("<li>");
-                body.append(makeAutorBlock(item, false));
+                body.append(makeItemBlock(item, false));
                 body.append("</li>");
                 level = curLevel;
             }
             body.append("</ul>");
 
         } else {
-
-
             Topic item = topicRepository.findById(pageInfo.getId()).orElse(null);
             if (item != null) {
                 this.pageInfo.setPageTitle(item.getName());
-                body.append(makeAutorBlock(item, true));
+                body.append(makeItemBlock(item, true));
+                body.append(citeCreatorService.makeCiteListByTopicNative(item));
             } else {
                 throw new DioRuntimeException();//to do
             }
@@ -63,7 +68,7 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
 
     }
 
-    private String makeAutorBlock(Topic topic, boolean singlePage) {
+    private String makeItemBlock(Topic topic, boolean singlePage) {
         StringBuilder str = new StringBuilder();
         if (!singlePage) {
             str.append("""
@@ -79,9 +84,9 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
                     """);
 
         } else {
-            str.append("<br/>");
+            str.append("<div><h2>");
             str.append(topic.getName());
-            str.append("<br/>");
+            str.append("</h2></div>");
         }
         return str.toString();
     }
