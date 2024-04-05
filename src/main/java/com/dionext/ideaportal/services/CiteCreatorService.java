@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.Collection;
 
 @Service
@@ -145,12 +146,24 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
             body.append("""
                     <div class="col">
                             """);
+            body.append(MessageFormat.format("""
+                    <div class="text-center mb-4 pb-2">
+                        <img src="{0}"
+                        alt="yin and yang" >
+                    </div>
+                    """, pageInfo.getOffsetStringToContextLevel() + "images/proet1.gif"));
             body.append(makeCiteBlock(item.getProCite(), false));
             body.append("</div>");
 
             body.append("""
                     <div class="col">
                             """);
+            body.append(MessageFormat.format("""
+                    <div class="text-center mb-4 pb-2">
+                        <img src="{0}"
+                        alt="yin and yang">
+                    </div>
+                    """, pageInfo.getOffsetStringToContextLevel() + "images/proet.gif"));
             body.append(makeCiteBlock(item.getContraCite(), false));
             body.append("</div>");
 
