@@ -68,6 +68,7 @@ web-config:
         key: "ideaportal.site.description"
       siteTitle:
         key: "ideaportal.site.title"
+      googleTagID: "G-FLJG5TXMQG"
       nav:
         - item:
           key: "ideaportal.menu.home"
