@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @Repository
 public interface AuthorRepository
-        extends JpaRepository<Author, String> {
+        extends JpaRepository<Author, Integer> {
 
     @Query("SELECT u FROM Author u WHERE u.names like CONCAT('%',?1,'%')")
     Collection<Author> findAllByTerm(String name);

@@ -60,7 +60,7 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
             body.append("</ul>");
 
         } else {
-            Topic item = topicRepository.findById(pageInfo.getId()).orElse(null);
+            Topic item = topicRepository.findById(Integer.valueOf(pageInfo.getId())).orElse(null);
             if (item != null) {
                 this.pageInfo.addPageTitle(item.getName());
                 body.append(makeItemBlock(item, true));

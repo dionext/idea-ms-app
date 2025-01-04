@@ -39,6 +39,7 @@ spring:
   jpa:
     open-in-view: false #to prevent warning
     show-sql: true
+    #database-platform: org.hibernate.dialect.MySQL55Dialect
     hibernate:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

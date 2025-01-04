@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collection;
 
-public interface CiteRepository extends JpaRepository<Cite, String> {
+public interface CiteRepository extends JpaRepository<Cite, Integer> {
 
     @Query("SELECT u FROM Cite u WHERE u.prior = '0'")
     Page<Cite> findAllFavorite(Pageable pageable);
@@ -31,8 +31,8 @@ public interface CiteRepository extends JpaRepository<Cite, String> {
         """,
         nativeQuery = true)
     Page<Cite> findByTopicHcodeNative(int hCodeLen, String themeHCode, Pageable pageable);
-    Collection<Cite> findByAuthorId(String authorId);
-    Page<Cite> findByAuthorId(String authorId, Pageable pageable);
-    Collection<Cite> findByTopics_Id(String topicId);
+    Collection<Cite> findByAuthorId(Integer authorId);
+    Page<Cite> findByAuthorId(Integer authorId, Pageable pageable);
+    Collection<Cite> findByTopics_Id(Integer topicId);
 
 }

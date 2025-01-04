@@ -15,7 +15,7 @@ public class Cite {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    public String id;
+    public Integer id;
 
     @ManyToOne()
     @JoinColumn(name = "author_id")

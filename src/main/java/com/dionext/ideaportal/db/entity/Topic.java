@@ -13,7 +13,7 @@ public class Topic {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    public String id;
+    public Integer id;
 
     @Column(nullable = false, length = 100)
     public String name;

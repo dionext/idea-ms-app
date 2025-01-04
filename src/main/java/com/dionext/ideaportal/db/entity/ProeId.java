@@ -16,9 +16,9 @@ import java.util.Objects;
 public class ProeId implements Serializable {
     private static final long serialVersionUID = -876068764395666653L;
     @Column(name = "pro_cite_id", nullable = false)
-    private String proCiteId;
+    private Integer proCiteId;
     @Column(name = "contra_cite_id", nullable = false)
-    private String contraCiteId;
+    private Integer contraCiteId;
 
 
     @Override

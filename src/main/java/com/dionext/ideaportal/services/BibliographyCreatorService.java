@@ -43,7 +43,7 @@ public class BibliographyCreatorService extends IdeaportalPageCreatorService {
 
         } else {
 
-            Bibliography item = bibliographyRepository.findById(pageInfo.getId()).orElse(null);
+            Bibliography item = bibliographyRepository.findById(Integer.valueOf(pageInfo.getId())).orElse(null);
             if (item != null) {
                 body.append(makeItemBlock(item, true));
             } else {

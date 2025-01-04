@@ -15,7 +15,7 @@ public class Author {
 
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @NotNull(message = "cannot be empty")
     @Size(min = 3, max = 50, message = "Artist name can be minimum 3 and maximum 30 characters long")
@@ -148,11 +148,11 @@ public class Author {
         this.viewCount = viewCount;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

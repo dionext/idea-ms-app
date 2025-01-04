@@ -87,7 +87,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
         } else {
 
 
-            Author author = authorRepository.findById(pageInfo.getId()).orElse(null);
+            Author author = authorRepository.findById(Integer.valueOf(pageInfo.getId())).orElse(null);
             if (author != null) {
                 this.pageInfo.addPageTitle(author.getNamep());
                 body.append(makeAuthorBlock(author, true));
@@ -157,7 +157,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
     public List<SearchWrapper> searchAuthor(String term) {
         List<SearchWrapper> wrapperSearch = new ArrayList<>();
         for (Author item : authorRepository.findAllByTerm(term)) {
-            wrapperSearch.add(new SearchWrapper(item.getId(), item.getNames(), item.getNames()));
+            wrapperSearch.add(new SearchWrapper(String.valueOf(item.getId()), item.getNames(), item.getNames()));
         }
         return wrapperSearch;
     }

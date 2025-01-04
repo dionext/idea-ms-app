@@ -49,7 +49,7 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
 
             body.append(paginationStr);
         } else {
-            Cite item = citeRepository.findById(pageInfo.getId()).orElse(null);
+            Cite item = citeRepository.findById(Integer.valueOf(pageInfo.getId())).orElse(null);
             if (item != null) {
                 body.append(makeCiteBlock(item, true));
             } else {
@@ -85,12 +85,12 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
         return createHtmlAll(new SrcPageContent(body.toString()));
 
     }
-    public String makeCiteListByAuthor(String authorId) {
+    public String makeCiteListByAuthor(Integer authorId) {
         StringBuilder body = new StringBuilder();
         Pageable pageable = PageRequest.of(pageInfo.getPageNum(), padSize);
         Page<Cite> citeList = citeRepository.findByAuthorId(authorId, pageable);
         int allPagesCount = citeList.getTotalPages();
-        String paginationStr = createPagination(authorId, pageInfo.getSiteSettings().getListPageDelimiter(), pageInfo.getExtension(), pageInfo.getPageNum(), allPagesCount);
+        String paginationStr = createPagination(String.valueOf(authorId), pageInfo.getSiteSettings().getListPageDelimiter(), pageInfo.getExtension(), pageInfo.getPageNum(), allPagesCount);
         body.append("""
                 <div><h3>Цитаты автора</h3><p>Найдено цитат автора: 
                 """);
@@ -115,7 +115,7 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
         StringBuilder body = new StringBuilder();
         Page<Cite> citeList = citeRepository.findByTopicHcodeNative(topic.getHcode().length(), topic.getHcode(), pageable);
         int allPagesCount = citeList.getTotalPages();
-        String paginationStr = createPagination(topic.getId(), pageInfo.getSiteSettings().getListPageDelimiter(), pageInfo.getExtension(), pageInfo.getPageNum(), allPagesCount);
+        String paginationStr = createPagination(String.valueOf(topic.getId()), pageInfo.getSiteSettings().getListPageDelimiter(), pageInfo.getExtension(), pageInfo.getPageNum(), allPagesCount);
         body.append("""
                 <p>Найдено цитат по теме: 
                 """);
