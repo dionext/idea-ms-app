@@ -25,8 +25,7 @@ public class Cite {
     //public String authorId;
 
 
-    @Lob
-    @Column()
+    @Column(columnDefinition="TEXT")
     public String text;
 
     @ManyToOne()

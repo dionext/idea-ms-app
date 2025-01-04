@@ -27,8 +27,7 @@ public class Author {
     private String namep;
 
     @NotBlank
-    @Lob
-    @Column()
+    @Column(columnDefinition="TEXT")
     private String info;
 
     @Column(name = "is_abstract", nullable = false)

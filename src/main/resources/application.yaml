@@ -16,10 +16,16 @@ info:
       target: '@java.version@'
 server:
   port: 8084
-service:
   shutdown:
-    graceful
+    graceful # see also spring.lifecycle.timeout-per-shutdown-phase=1m
 spring:
+  #mvc:
+   # pathmatch:
+    #  matching-strategy: ant-path-matcher
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: "off"
+    log-startup-info: true
   lifecycle:
     timeout-per-shutdown-phase: "30s"
   thymeleaf:
@@ -39,6 +45,11 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
+  security:
+    user:
+      name: ${ADMIN_USER:admin}
+      password: ${ADMIN_PASSWORD:admin}
+
 logging:
   level:
     com:

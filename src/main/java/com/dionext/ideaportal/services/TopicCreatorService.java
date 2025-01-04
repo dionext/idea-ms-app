@@ -1,8 +1,10 @@
 package com.dionext.ideaportal.services;
 
 
+import com.dionext.ideaportal.db.entity.Author;
 import com.dionext.ideaportal.db.entity.Topic;
 import com.dionext.ideaportal.db.repositories.TopicRepository;
+import com.dionext.site.dto.PageUrl;
 import com.dionext.site.dto.SrcPageContent;
 import com.dionext.utils.exceptions.DioRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TopicCreatorService extends IdeaportalPageCreatorService {
@@ -32,6 +37,8 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
     public String createPage() {
         StringBuilder body = new StringBuilder();
         if (pageInfo.isList()) {
+            pageInfo.addPageTitle(i18n.getString("ideaportal.menu.aphorisms.bytopic"));
+
             Pageable pageable = PageRequest.of(pageInfo.getPageNum(), PAD_SIZE, Sort.by("hcode"));
             Page<Topic> listPage = topicRepository.findAll(pageable);
             listPage.getTotalElements();
@@ -55,7 +62,7 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
         } else {
             Topic item = topicRepository.findById(pageInfo.getId()).orElse(null);
             if (item != null) {
-                this.pageInfo.setPageTitle(item.getName());
+                this.pageInfo.addPageTitle(item.getName());
                 body.append(makeItemBlock(item, true));
                 body.append(citeCreatorService.makeCiteListByTopicNative(item));
             } else {
@@ -90,4 +97,16 @@ public class TopicCreatorService extends IdeaportalPageCreatorService {
         }
         return str.toString();
     }
+
+    public List<PageUrl> findAllTopicPages() {
+        List<PageUrl> all = new ArrayList<>();
+        all.add(new PageUrl("topic/list"));
+        List<Topic> list  = topicRepository.findAll();
+        for (Topic topic : list){
+            all.add(new PageUrl("topic/" + topic.getId()));
+        }
+        return all;
+    }
+
+
 }

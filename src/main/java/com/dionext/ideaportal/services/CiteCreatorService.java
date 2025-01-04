@@ -60,6 +60,9 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
 
     }
     public String createPage(boolean favorite) {
+        if (favorite)
+            pageInfo.addPageTitle(i18n.getString("ideaportal.menu.aphorisms.favorite"));
+
         StringBuilder body = new StringBuilder();
         if (pageInfo.isList()) {
             Pageable pageable = PageRequest.of(pageInfo.getPageNum(), padSize, Sort.by("id"));
@@ -134,6 +137,7 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
         return body.toString();
     }
     private String makeProeCiteList(Iterable<Proe> citeList) {
+        pageInfo.addPageTitle(i18n.getString("ideaportal.menu.aphorisms.proetcontra"));
         StringBuilder body = new StringBuilder();
         body.append("""
             <div class="container">

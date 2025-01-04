@@ -7,8 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
+import java.io.File;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 @SpringBootApplication
@@ -17,6 +21,7 @@ import java.util.Locale;
 @ComponentScan(basePackages = "com.dionext.site")
 @Slf4j
 @EnableCaching
+//@EnableMethodSecurity
 public class MainMsAppApplication implements ApplicationRunner {
 
     public static void main(String[] args) {

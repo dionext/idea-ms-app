@@ -25,6 +25,8 @@ public class BibliographyCreatorService extends IdeaportalPageCreatorService {
 
 
     public String createPage() {
+        pageInfo.addPageTitle(i18n.getString("ideaportal.menu.aphorisms.sources"));
+
         StringBuilder body = new StringBuilder();
         if (pageInfo.isList()) {
             Pageable pageable = PageRequest.of(pageInfo.getPageNum(), padSize, Sort.by("id"));

@@ -115,6 +115,7 @@ public class IdeaportalSiteController extends BaseSiteController {
             if (index > -1)
                 path = path.substring(0, index);
         }
+        log.debug("Path after revove: " + path);
         return path;
     }
 
@@ -122,57 +123,56 @@ public class IdeaportalSiteController extends BaseSiteController {
     public ResponseEntity<Void> processAppIndex(HttpServletRequest request,
                                                 HttpServletResponse response,
                                                 @RequestParam Map<String, String> parameters)  {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create( removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/index.htm")).build();
+        return redirect("index.htm");
     }
     @GetMapping(value = {"/app/aut.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppAut(HttpServletRequest request,
                                               HttpServletResponse response,
                                               @RequestParam Map<String, String> parameters) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/author/list")).build();
+        return redirect("author/list");
     }
     @GetMapping(value = {"/app/aut_s_{id}.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppAutS(HttpServletRequest request,
                                               HttpServletResponse response,
                                                @PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/author/" + id)).build();
+        return redirect("author/" + id);
     }
     @GetMapping(value = {"/app/lit.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppLit(HttpServletRequest request,
                                               HttpServletResponse response,
                                               @RequestParam Map<String, String> parameters) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/bibliography/list")).build();
+        return redirect("bibliography/list");
     }
     @GetMapping(value = {"/app/tem.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppTem(HttpServletRequest request,
                                               HttpServletResponse response,
                                               @RequestParam Map<String, String> parameters) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/topic/list")).build();
+        return redirect("topic/list");
     }
     @GetMapping(value = {"/app/proe.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppProe(HttpServletRequest request,
                                               HttpServletResponse response,
                                               @RequestParam Map<String, String> parameters) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/proetcontra/list")).build();
+        return redirect("proetcontra/list");
     }
     @GetMapping(value = {"/app/fil.htm"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processAppFil(HttpServletRequest request,
                                                HttpServletResponse response,
                                                @RequestParam Map<String, String> parameters) {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/cite-favorite/list")).build();
+        return redirect("cite-favorite/list");
     }
-    @GetMapping(value = {"/app/**"}, produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = {"/app/**", "/app//**"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<Void> processOtherLegacy(HttpServletRequest request,
                                                 HttpServletResponse response,
                                                 @RequestParam Map<String, String> parameters)  {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/index.htm")).build();
+        return redirect("index.htm");
+    }
+    @GetMapping(value = {"/index.php", "/component/**",
+            "/kontakty", "/izmenit-lichnye-dannye", "/katalog-ssylok"})
+    public ResponseEntity<Void> processIndexPhp(HttpServletRequest request,
+                                                   HttpServletResponse response,
+                                                   @RequestParam Map<String, String> parameters)  {
+        return redirect("index.htm");
     }
 
     @GetMapping(value = {
@@ -190,8 +190,13 @@ public class IdeaportalSiteController extends BaseSiteController {
     public ResponseEntity<Void> processLegacyAtricles(HttpServletRequest request,
                                                    HttpServletResponse response,
                                                    @RequestParam Map<String, String> parameters)  {
-        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(URI.create(removePath(pageInfo.getLevel(), request.getRequestURI())
-                + "/index.htm")).build();
+        return redirect("index.htm");
+    }
+    private ResponseEntity<Void> redirect(String redirectRelAddres) {
+        String newUrl = pageInfo.getDomainUrl() +"/"+ redirectRelAddres;
+        //log.debug("newUrl: " + newUrl);
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(
+                URI.create(newUrl)).build();
     }
 
 }

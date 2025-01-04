@@ -2,13 +2,10 @@ package com.dionext.ideaportal.services;
 
 import com.dionext.ideaportal.db.entity.Author;
 import com.dionext.ideaportal.db.repositories.AuthorRepository;
-import com.dionext.site.dto.ImageDrawInfo;
-import com.dionext.site.dto.SearchWrapper;
-import com.dionext.site.dto.SrcPageContent;
+import com.dionext.site.dto.*;
 import com.dionext.utils.Utils;
 import com.dionext.utils.exceptions.DioRuntimeException;
 import com.google.common.base.Strings;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +60,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
     public String createPage() {
         StringBuilder body = new StringBuilder();
         if (pageInfo.isList()) {
+            pageInfo.addPageTitle(i18n.getString("ideaportal.menu.aphorisms.byauthor"));
             Pageable pageable = PageRequest.of(pageInfo.getPageNum(), padSize, Sort.by("names"));
             Page<Author> listPage = authorRepository.findAll(pageable);
             int allPagesCount = listPage.getTotalPages();
@@ -91,7 +89,7 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
 
             Author author = authorRepository.findById(pageInfo.getId()).orElse(null);
             if (author != null) {
-                this.pageInfo.setPageTitle(author.getNamep());
+                this.pageInfo.addPageTitle(author.getNamep());
                 body.append(makeAuthorBlock(author, true));
                 body.append(citeCreatorService.makeCiteListByAuthor(author.getId()));
             } else {
@@ -162,6 +160,22 @@ public class AuthorCreatorService extends IdeaportalPageCreatorService {
             wrapperSearch.add(new SearchWrapper(item.getId(), item.getNames(), item.getNames()));
         }
         return wrapperSearch;
+    }
+
+    public List<PageUrl> findAllAuthorPages() {
+        List<PageUrl> all = new ArrayList<>();
+
+        Pageable pageable = PageRequest.of(0, padSize, Sort.by("names"));
+        Page<Author> listPage = authorRepository.findAll(pageable);
+        int allPagesCount = listPage.getTotalPages();
+        all.addAll(createPaginationForSitemap("author/" + pageInfo.getSiteSettings().getListPrefix(), pageInfo.getSiteSettings().getListPageDelimiter(),
+                "htm",  allPagesCount));
+
+        List<Author> list  = authorRepository.findAll();
+        for (Author author : list){
+            all.add(new PageUrl("author/" + author.getId()));
+        }
+        return all;
     }
 
 }
