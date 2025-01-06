@@ -14,6 +14,10 @@ spring:
       dialect: org.hibernate.dialect.H2Dialect
       hbm2ddl:
         auto: create
+  ai:
+    openai:
+      api-key: "UNIT_TEST_KEY"
+
 web-config:
   multiSites:
     hiking:
