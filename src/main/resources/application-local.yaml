@@ -6,10 +6,9 @@ logging:
       dionext: debug
 
 web-config:
-  multiSites:
-    ideaportal:
-      siteStaticStoragePath: "file:R:/doc/sites/ideaportal/input"
-      siteStoragePaths:
-        - "file:R:/doc/sites/ideaportal/input"
-      siteInternalStoragePaths:
-        - "file:R:/doc/sites/ideaportal/mediainfo"
+  website:
+    siteStaticStoragePath: "file:R:/doc/sites/ideaportal/input"
+    siteStoragePaths:
+      - "file:R:/doc/sites/ideaportal/input"
+    siteInternalStoragePaths:
+      - "file:R:/doc/sites/ideaportal/mediainfo"
