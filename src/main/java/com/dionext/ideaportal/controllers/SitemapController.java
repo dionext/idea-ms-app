@@ -56,14 +56,4 @@ public class SitemapController extends BaseSiteController {
                 """, pageInfo.getDomainUrl()), responseHeaders, HttpStatus.OK);
     }
 
-    /**
-     *  We need this for auto redirect to lang page
-     * @param params
-     * @return
-     */
-    @GetMapping("/**")
-    public ResponseEntity<String> all(@RequestParam Map<String,String> params) {
-        return sendOk("");
-    }
-
 }

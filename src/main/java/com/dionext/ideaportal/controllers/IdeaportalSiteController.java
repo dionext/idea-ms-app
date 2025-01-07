@@ -98,8 +98,15 @@ public class IdeaportalSiteController extends BaseSiteController {
         return sendOk(citeCreatorService.createPageProetcontra(true));
     }
 
+    /*
     //for text pages
     @GetMapping(value = {"/**"}, produces = MediaType.TEXT_HTML_VALUE)
+    public ResponseEntity<String> processPage() {
+        return sendOk(
+                createSimpleSitePage(pageParserService, ideaportalPageElementService));
+    }
+     */
+    @GetMapping(value = {"/**.htm", "/razdely/**"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> processPage() {
         return sendOk(
                 createSimpleSitePage(pageParserService, ideaportalPageElementService));
