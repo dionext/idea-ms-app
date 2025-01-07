@@ -26,7 +26,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @Tag(name = "Ideaportal Site Controller", description = "Ideaportal Site Controller")
-@RequestMapping(value = {"/ideaportal"})
+@RequestMapping(value = {"/"})
 public class IdeaportalSiteController extends BaseSiteController {
     private IdeaportalPageCreatorService ideaportalPageElementService;
     private AuthorCreatorService authorCreatorService;

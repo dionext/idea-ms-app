@@ -59,80 +59,77 @@ logging:
 #----------------------------------------
 web-config:
   website:
+    siteLangs: "ru"
+    siteLangInPath: false
+    siteDomain: "ideology.ru"
     siteProtocol: "https"
-  multiSites:
-    ideaportal:
-      siteLangs: "ru"
-      siteLangInPath: false
-      siteDomain: "ideology.ru"
-      siteProtocol: "https"
-      siteStaticStoragePath: "file:/mnt/sites/ideaportal/input"
-      siteStoragePaths:
-        - "file:/mnt/sites/ideaportal/input"
-      siteInternalStoragePaths:
-        - "file:/mnt/sites/ideaportal/mediainfo"
-      createMetaOg: true
-      createMetaForIcons: true
-      useExternalUrlForImages: false
-      keywords:
-        key: "ideaportal.site.keywords"
-      description:
-        key: "ideaportal.site.description"
-      siteTitle:
-        key: "ideaportal.site.title"
-      googleTagID: "G-FLJG5TXMQG"
-      nav:
-        - item:
-          key: "ideaportal.menu.home"
-          url: "index.htm"
+    siteStaticStoragePath: "file:/mnt/sites/ideaportal/input"
+    siteStoragePaths:
+      - "file:/mnt/sites/ideaportal/input"
+    siteInternalStoragePaths:
+      - "file:/mnt/sites/ideaportal/mediainfo"
+    createMetaOg: true
+    createMetaForIcons: true
+    useExternalUrlForImages: false
+    keywords:
+      key: "ideaportal.site.keywords"
+    description:
+      key: "ideaportal.site.description"
+    siteTitle:
+      key: "ideaportal.site.title"
+    googleTagID: "G-FLJG5TXMQG"
+    nav:
+      - item:
+        key: "ideaportal.menu.home"
+        url: "index.htm"
+      #- item:
+      #  key: "ideaportal.menu.articles"
+      #  url: "content.htm"
+      - item:
+        key: "ideaportal.menu.aphorisms"
+        url: "#"
+        subitems:
+          - item:
+            key: "ideaportal.menu.aphorisms.byauthor"
+            url: "author/list"
+          - item:
+            key: "ideaportal.menu.aphorisms.bytopic"
+            url: "topic/list"
+          - item:
+            key: "ideaportal.menu.aphorisms.proetcontra"
+            url: "proetcontra/list"
+          - item:
+            key: "ideaportal.menu.aphorisms.favorite"
+            url: "cite-favorite/list"
+          #- item:
+          #  key: "ideaportal.menu.aphorisms.search"
+          #  url: "cite/list"
+          - item:
+            key: "ideaportal.menu.aphorisms.sources"
+            url: "bibliography/list"
+      - item:
+        key: "ideaportal.menu.aphorisms.byauthor"
+        url: "author/list"
+      - item:
+        key: "ideaportal.menu.aphorisms.bytopic"
+        url: "topic/list"
+      - item:
+        key: "ideaportal.menu.aphorisms.proetcontra"
+        url: "proetcontra/list"
+      - item:
+        key: "ideaportal.menu.about.project"
+        url: "about.htm"
+        subitems:
         #- item:
-        #  key: "ideaportal.menu.articles"
-        #  url: "content.htm"
+        #  key: "ideaportal.menu.about.project"
+        #  url: "about.htm"
         - item:
-          key: "ideaportal.menu.aphorisms"
-          url: "#"
-          subitems:
-            - item:
-              key: "ideaportal.menu.aphorisms.byauthor"
-              url: "author/list"
-            - item:
-              key: "ideaportal.menu.aphorisms.bytopic"
-              url: "topic/list"
-            - item:
-              key: "ideaportal.menu.aphorisms.proetcontra"
-              url: "proetcontra/list"
-            - item:
-              key: "ideaportal.menu.aphorisms.favorite"
-              url: "cite-favorite/list"
-            #- item:
-            #  key: "ideaportal.menu.aphorisms.search"
-            #  url: "cite/list"
-            - item:
-              key: "ideaportal.menu.aphorisms.sources"
-              url: "bibliography/list"
+          key: "ideaportal.menu.aphorisms.about"
+          url: "aboutаphorisms.htm"
         - item:
-          key: "ideaportal.menu.aphorisms.byauthor"
-          url: "author/list"
-        - item:
-          key: "ideaportal.menu.aphorisms.bytopic"
-          url: "topic/list"
-        - item:
-          key: "ideaportal.menu.aphorisms.proetcontra"
-          url: "proetcontra/list"
-        - item:
-          key: "ideaportal.menu.about.project"
-          url: "about.htm"
-          subitems:
-          #- item:
-          #  key: "ideaportal.menu.about.project"
-          #  url: "about.htm"
-          - item:
-            key: "ideaportal.menu.aphorisms.about"
-            url: "aboutаphorisms.htm"
-          - item:
-            key: "ideaportal.menu.aphorisms.traditsii-filosofskoj-aforistiki"
-            url: "razdely/filosofiya/filosofskaya-aforistika/19-traditsii-filosofskoj-aforistiki"
-          #- item:
-          #  key: "ideaportal.menu.links"
-          #  url: "links.htm"
+          key: "ideaportal.menu.aphorisms.traditsii-filosofskoj-aforistiki"
+          url: "razdely/filosofiya/filosofskaya-aforistika/19-traditsii-filosofskoj-aforistiki"
+        #- item:
+        #  key: "ideaportal.menu.links"
+        #  url: "links.htm"
 

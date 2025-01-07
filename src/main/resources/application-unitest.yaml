@@ -18,11 +18,3 @@ spring:
     openai:
       api-key: "UNIT_TEST_KEY"
 
-web-config:
-  multiSites:
-    hiking:
-      siteStaticStoragePath: "file:I:/doc/sites/hiking/output"
-      siteStoragePaths:
-        - "file:R:/doc/sites/hiking/input"
-      siteInternalStoragePaths:
-        - "file:I:/doc/sites/hiking/mediainfo"

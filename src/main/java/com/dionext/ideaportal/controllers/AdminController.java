@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @Tag(name = "Admin Controller", description = "Admin Controller")
-@RequestMapping(value = {"/ideaportal/admin"})
+@RequestMapping(value = {"/admin"})
 public class AdminController extends BaseSiteController {
 
     private AdminService adminService;
