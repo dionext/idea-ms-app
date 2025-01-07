@@ -106,7 +106,7 @@ public class IdeaportalSiteController extends BaseSiteController {
                 createSimpleSitePage(pageParserService, ideaportalPageElementService));
     }
      */
-    @GetMapping(value = {"/**.htm", "/razdely/**"}, produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = {"/**.htm", "/**.html", "/razdely/**"}, produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> processPage() {
         return sendOk(
                 createSimpleSitePage(pageParserService, ideaportalPageElementService));

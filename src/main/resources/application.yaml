@@ -19,6 +19,9 @@ server:
   shutdown:
     graceful # see also spring.lifecycle.timeout-per-shutdown-phase=1m
 spring:
+  ai:
+    openai:
+      api-key: "UNIT_TEST_KEY"
   #mvc:
    # pathmatch:
     #  matching-strategy: ant-path-matcher
@@ -56,6 +59,9 @@ logging:
     com:
       zaxxer:
         hikari: OFF # suppress errors in log when DatabaseStartupValidator trying to connect to database
+
+
+
 #----------------------------------------
 web-config:
   website:

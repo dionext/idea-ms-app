@@ -5,5 +5,11 @@ logging:
     com:
       dionext: debug
 
+web-config:
+  siteStaticStoragePath: "file:/mnt/disk2/sites/ideaportal/input"
+  siteStoragePaths:
+    - "file:/mnt/disk2/sites/ideaportal/input"
+  siteInternalStoragePaths:
+    - "file:/mnt/disk2/sites/ideaportal/mediainfo"
 
 
