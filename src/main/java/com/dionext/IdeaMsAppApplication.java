@@ -7,12 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
-import java.io.File;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 
 @SpringBootApplication
@@ -22,11 +18,11 @@ import java.util.TimeZone;
 @Slf4j
 @EnableCaching
 //@EnableMethodSecurity
-public class MainMsAppApplication implements ApplicationRunner {
+public class IdeaMsAppApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
-        SpringApplication.run(MainMsAppApplication.class, args);
+        SpringApplication.run(IdeaMsAppApplication.class, args);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> log.debug("ShutdownHook...")));
     }
 
