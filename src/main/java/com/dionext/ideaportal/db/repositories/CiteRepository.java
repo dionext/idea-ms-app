@@ -13,6 +13,8 @@ public interface CiteRepository extends JpaRepository<Cite, Integer> {
 
     @Query("SELECT u FROM Cite u WHERE u.prior = '0'")
     Page<Cite> findAllFavorite(Pageable pageable);
+    @Query("SELECT u FROM Cite u WHERE u.prior = '0'")
+    Collection<Cite> findAllFavorite();
 
     //SELECT DISTINCT(cite.id), cite.text, theme.name FROM cite, theme, theme_cite WHERE cite.id = theme_cite.cite_id AND theme_cite.theme_id = theme.id
     //AND LEFT(theme.hcode, 1) = 'E'

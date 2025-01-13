@@ -12,6 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 public class Cite {
+    public static final String CITE = "Cite";
+    public static final String CITE_EXP = "cite-exp";
+    public static final String IDEA = "idea";
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)

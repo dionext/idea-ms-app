@@ -7,16 +7,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.Locale;
 
 
 @SpringBootApplication
 @ComponentScan
-@ComponentScan(basePackages = "com.dionext.utils")
-@ComponentScan(basePackages = "com.dionext.site")
+@ComponentScan(basePackages = "com.dionext")
 @Slf4j
 @EnableCaching
+@EnableAsync
 //@EnableMethodSecurity
 public class IdeaMsAppApplication implements ApplicationRunner {
 

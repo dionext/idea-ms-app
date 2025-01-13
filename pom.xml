@@ -16,8 +16,9 @@
 
 	<properties>
 		<java.version>23</java.version>
-		<spring-ai.version>1.0.0-M4</spring-ai.version>
+		<spring-ai.version>1.0.0-M5</spring-ai.version>
 		<libSiteSpringStarter>1.0.0</libSiteSpringStarter>
+		<libAiSpringStarter>1.0.0</libAiSpringStarter>
 		<start-class>com.dionext.IdeaMsAppApplication</start-class>
 	</properties>
 
@@ -27,6 +28,11 @@
 			<groupId>com.dionext</groupId>
 			<artifactId>lib-site-spring-starter</artifactId>
 			<version>${libSiteSpringStarter}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dionext</groupId>
+			<artifactId>lib-ai-spring-starter</artifactId>
+			<version>${libAiSpringStarter}</version>
 		</dependency>
 
 		<!-- spring and common dependencies -->

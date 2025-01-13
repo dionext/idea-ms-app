@@ -1,5 +1,7 @@
 package com.dionext.ideaportal.services;
 
+import com.dionext.ai.entity.AiRequest;
+import com.dionext.ai.repositories.AiRequestRepository;
 import com.dionext.ideaportal.db.entity.Author;
 import com.dionext.ideaportal.db.entity.Cite;
 import com.dionext.ideaportal.db.entity.Proe;
@@ -35,6 +37,9 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
     public void setProeRepository(ProeRepository proeRepository) {
         this.proeRepository = proeRepository;
     }
+
+    @Autowired
+    AiRequestRepository aiRequestRepository;
 
     public String createPageProetcontra(boolean favorite) {
         StringBuilder body = new StringBuilder();
@@ -205,10 +210,21 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
                         """);
                 str.append("</p>");
             }
+
+            Collection<AiRequest>  aiRequests = aiRequestRepository.findByExternalDomainAndExternalEntityAndExternalVariantAndExternalId(
+                    Cite.IDEA, Cite.CITE, Cite.CITE_EXP, item.getId().toString());
+            if (!aiRequests.isEmpty()) {
+                str.append("<p><i><b>Oбъяснение афоризма: </b></i></p>");
+                for (AiRequest aiRequest : aiRequests) {
+                    str.append("<i>" + aiRequest.getResult().replace("\n", "<br/>") + "</i>");
+                }
+            }
+
             str.append("""
                         </p>
                       </div>
                     </div>                    """);
+
 
         } else {
             str.append("<br/>");
