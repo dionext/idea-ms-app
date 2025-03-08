@@ -1,11 +1,8 @@
 package com.dionext.ideaportal.controllers;
 
-import com.dionext.ideaportal.db.entity.Cite;
-import com.dionext.ideaportal.db.repositories.CiteRepository;
 import com.dionext.ideaportal.services.CiteCreatorService;
 import com.dionext.site.controllers.BaseSiteController;
 import com.dionext.utils.exceptions.DioRuntimeException;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

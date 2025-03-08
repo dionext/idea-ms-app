@@ -1,7 +1,6 @@
 package com.dionext.ideaportal.services;
 
 
-import com.dionext.ideaportal.db.entity.Author;
 import com.dionext.ideaportal.db.entity.Topic;
 import com.dionext.ideaportal.db.repositories.TopicRepository;
 import com.dionext.site.dto.PageUrl;

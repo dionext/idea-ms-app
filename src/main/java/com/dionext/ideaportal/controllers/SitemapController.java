@@ -1,6 +1,5 @@
 package com.dionext.ideaportal.controllers;
 
-import com.dionext.ideaportal.services.IdeaportalPageCreatorService;
 import com.dionext.ideaportal.services.IdeaportalSitemapService;
 import com.dionext.site.controllers.BaseSiteController;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,13 +23,8 @@ import java.util.Map;
 @RequestMapping(value = {"/"})
 public class SitemapController extends BaseSiteController {
 
-    private IdeaportalPageCreatorService ideaportalPageElementService;
     private IdeaportalSitemapService ideaportalSitemapService;
 
-    @Autowired
-    public void setIdeaportalPageElementService(IdeaportalPageCreatorService ideaportalPageElementService) {
-        this.ideaportalPageElementService = ideaportalPageElementService;
-    }
 
     @Autowired
     public void setIdeaportalSitemapService(IdeaportalSitemapService ideaportalSitemapService) {
@@ -42,13 +36,13 @@ public class SitemapController extends BaseSiteController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE + "; charset=utf-8");
-        return new ResponseEntity(ideaportalSitemapService.createSitemap(false), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<String>(ideaportalSitemapService.createSitemap(false), responseHeaders, HttpStatus.OK);
     }
     @GetMapping("/robots.txt")
     public ResponseEntity<String> robots(@RequestParam Map<String,String> params) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE + "; charset=utf-8");
-        return new ResponseEntity(MessageFormat.format("""
+        return new ResponseEntity<String>(MessageFormat.format("""
                 User-agent: *
                 Disallow: /admin/
                 Disallow: /api/

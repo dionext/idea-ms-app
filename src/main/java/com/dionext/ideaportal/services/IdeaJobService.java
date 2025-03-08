@@ -72,7 +72,7 @@ public class IdeaJobService extends BaseJobService implements JobService {
                     return items;
 
             });
-            jobBatchRunner.setJobBatchIdExtractor((jobInstance, item) -> (String)item);
+            jobBatchRunner.setJobBatchIdExtractor((_, item) -> (String)item);
             jobBatchRunner.setJobBatchItemProcessor((jobInstance, item) -> {
                 //jobInstance.incrementProgress();
                 try {

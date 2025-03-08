@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class SecurityUtils {
     public static boolean isLoggedIn() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
+        //Object principal = authentication.getPrincipal();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return authentication != null && authentication.isAuthenticated();
         }
