@@ -23,15 +23,12 @@ public class IdeaportalSitemapService {
     private TopicCreatorService topicCreatorService;
     private CiteCreatorService citeCreatorService;
     private BibliographyCreatorService bibliographyCreatorService;
-    private PageParserService pageParserService;
+
     @Autowired
     public void setSitemapService(SitemapService sitemapService) {
         this.sitemapService = sitemapService;
     }
-    @Autowired
-    public void setPageParserService(PageParserService pageParserService) {
-        this.pageParserService = pageParserService;
-    }
+
 
     @Autowired
     public void setIdeaportalPageElementService(IdeaportalPageCreatorService ideaportalPageElementService) {

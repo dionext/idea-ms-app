@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+
+<div th:fragment="edit">
+    <form th:hx-post="'/admin/cite/update-text/' + ${item.getId()}" hx-target="this" hx-swap="outerHTML">
+        <input type="hidden" name="id" th:value="${item.getId()}">
+        <div>
+            <label>Текст:</label>
+            <textarea name="text" class="form-control"  rows="10" cols="50" th:text="${item.getText()}"></textarea>
+        </div>
+        <button type="submit" name="action" value="cancel" class="btn btn-light">Отменить</button>
+        <button type="submit" name="action" value="save" class="btn btn-light">Применить</button>
+    </form>
+</div>
+
+<div th:fragment="view">
+    <p>OK</p>
+</div>
+
+
+</body>
+</html>

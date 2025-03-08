@@ -1,6 +1,7 @@
 package com.dionext.ideaportal.controllers;
 
 
+import com.dionext.ideaportal.services.SecurityUtils;
 import com.dionext.site.controllers.BaseSiteController;
 import com.dionext.site.dto.SrcPageContent;
 import com.dionext.site.services.AdminService;
@@ -30,6 +31,7 @@ public class AdminController extends BaseSiteController {
 
     @GetMapping("main")
     public ResponseEntity<String> getMainPage(@RequestParam Map<String, String> params) {
+        SecurityUtils.isLoggedIn();
         return sendOk(adminService.createHtmlAll(new SrcPageContent(adminService.createAdminPage(params))));
     }
 

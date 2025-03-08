@@ -16,9 +16,10 @@
 
 	<properties>
 		<java.version>23</java.version>
-		<spring-ai.version>1.0.0-M5</spring-ai.version>
+		<spring-ai.version>1.0.0-M6</spring-ai.version>
 		<libSiteSpringStarter>1.0.0</libSiteSpringStarter>
 		<libAiSpringStarter>1.0.0</libAiSpringStarter>
+		<libJobSpringStarter>1.0.0</libJobSpringStarter>
 		<start-class>com.dionext.IdeaMsAppApplication</start-class>
 	</properties>
 
@@ -33,6 +34,11 @@
 			<groupId>com.dionext</groupId>
 			<artifactId>lib-ai-spring-starter</artifactId>
 			<version>${libAiSpringStarter}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dionext</groupId>
+			<artifactId>lib-job-spring-starter</artifactId>
+			<version>${libJobSpringStarter}</version>
 		</dependency>
 
 		<!-- spring and common dependencies -->
@@ -66,7 +72,7 @@
 			<version>5.1.0</version>
 		</dependency>
 
-		<!-- ai -->
+		<!-- ai
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
@@ -74,7 +80,7 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-		</dependency>
+		</dependency>-->
 
 
 		<dependency><!-- for unit testing -->
