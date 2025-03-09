@@ -19,6 +19,16 @@ server:
   shutdown:
     graceful # see also spring.lifecycle.timeout-per-shutdown-phase=1m
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
   ai:
     openai:
       api-key: "UNIT_TEST_KEY"
@@ -208,4 +218,9 @@ web-config:
         #- item:
         #  key: "ideaportal.menu.links"
         #  url: "links.htm"
+
+google.recaptcha:
+  site-key: "6Lfu0-4qAAAAAM7m-V2ZZ9GSb-oaxOoR1fbXTVUX"
+  secret-key: "6Lfu0-4qAAAAAHkM2WYG2Dmap1Ksy8FkuLKRHV6y"
+
 

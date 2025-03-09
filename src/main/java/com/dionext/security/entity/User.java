@@ -28,6 +28,12 @@ public class User {
     @Column(nullable = false)
     private String roles;
 
+    @Column(name = "oauth2_provider")
+    private String provider;
+
+    @Column(name = "oauth2_id")
+    private String providerId;
+
     public User() {
     }
 
@@ -37,8 +43,27 @@ public class User {
         this.roles = roles;
     }
 
+    public User(String username, String email, String provider, String providerId) {
+        this.username = username;
+        this.email = email;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.roles = "USER";
+        this.password = "{noop}"; // No password for OAuth2 users
+    }
+
     public Long getId() {
         return id;
+    }
+    @Column(unique = true)
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -51,6 +76,22 @@ public class User {
 
     public String getRoles() {
         return roles;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 
     static public Collection<String> getRolesList(User user){
