@@ -4,23 +4,13 @@ import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.*;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 public class SecurityConfiguration {
 
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
     /*  simple InMemoryUser
     do not use password encoding
     @Bean
@@ -47,6 +37,9 @@ public class SecurityConfiguration {
     }
     */
 
+
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz
@@ -62,12 +55,6 @@ public class SecurityConfiguration {
                         .loginPage("/login") // Custom login page
                         .defaultSuccessUrl("/index.htm") // Redirect after successful login
                         .failureUrl("/login?error=true") // Redirect after failed login
-                        .permitAll()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/index.htm")
-                        .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout

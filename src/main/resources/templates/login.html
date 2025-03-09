@@ -2,135 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     [(${header})]
-    <style>
-        .login-container {
-            max-width: 400px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        .google-btn {
-            background-color: #4285f4;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        .google-btn img {
-            width: 20px;
-            height: 20px;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #6b7280;
-            margin: 20px 0;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .divider span {
-            padding: 0 10px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            margin-top: 8px;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-        .password-group {
-            position: relative;
-        }
-        .forgot-password {
-            position: absolute;
-            right: 0;
-            top: 0;
-            color: #4285f4;
-            text-decoration: none;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #4285f4;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            margin-top: 20px;
-        }
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .register-link a {
-            color: #4285f4;
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
 [(${bodyTop})]
-<div class="login-container">
-    <div class="text-right mb-3">
-        <a th:href="@{/login(lang=en)}">English</a> |
-        <a th:href="@{/login(lang=ru)}">Russian</a> |
-        <a th:href="@{/login(lang=fr)}">Français</a> |
-        <a th:href="@{/login(lang=es)}">Español</a>
-    </div>
-    
-    <h1 class="text-center mb-4" style="font-size: 24px; font-weight: 600;">Sign in to your account</h1>
-    
-    <a href="/oauth2/authorization/google" class="google-btn">
-        <img src="https://www.google.com/favicon.ico" alt="Google icon">
-        <span th:text="'Вход через аккаунт Google'">Sign in with Google</span>
-    </a>
-
-    <div class="divider">
-        <span>or</span>
-    </div>
-
-    <form th:action="@{/login}" method="post">
-        <div class="mb-3">
-            <label class="form-label" for="username" th:text="#{login.username}">Email Address</label>
-            <input type="email" class="form-control" id="username" name="username" required>
-        </div>
-        
-        <div class="mb-3">
-            <div class="password-group">
-                <label class="form-label" for="password" th:text="#{login.password}">Password</label>
-                <a href="#" class="forgot-password">Forgot password?</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="text-right mb-3">
+                <a th:href="@{/login(lang=en)}">English</a> |
+                <a th:href="@{/login(lang=ru)}">Russian</a> |
+                <a th:href="@{/login(lang=fr)}">Français</a> |
+                <a th:href="@{/login(lang=es)}">Español</a>
             </div>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <h2 class="text-center" th:text="#{login.title}">Login</h2>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username" th:text="#{login.username}">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" th:text="#{login.password}">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" th:text="#{login.button}">Login</button>
+                </div>
+                <div th:if="${param.error}" class="alert alert-danger" th:text="#{login.error}">
+                    Invalid username or password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success" th:text="#{login.logout}">
+                    You have been logged out.
+                </div>
+            </form>
         </div>
-
-        <button type="submit" class="submit-btn" th:text="#{login.button}">Sign in</button>
-
-        <div th:if="${param.error}" class="alert alert-danger mt-3" th:text="#{login.error}">
-            Invalid username or password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success mt-3" th:text="#{login.logout}">
-            You have been logged out.
-        </div>
-    </form>
-
-    <div class="register-link">
-        <span th:text="#{login.no.account}">Not a member?</span>
-        <a th:href="@{/register}" th:text="#{login.register}">Create an account</a>
     </div>
 </div>
 [(${bodyBottom})]
