@@ -20,6 +20,7 @@
 		<libSiteSpringStarter>1.0.0</libSiteSpringStarter>
 		<libAiSpringStarter>1.0.0</libAiSpringStarter>
 		<libJobSpringStarter>1.0.0</libJobSpringStarter>
+		<libAuthSpringStarter>1.0.0</libAuthSpringStarter>
 		<start-class>com.dionext.IdeaMsAppApplication</start-class>
 	</properties>
 
@@ -39,6 +40,11 @@
 			<groupId>com.dionext</groupId>
 			<artifactId>lib-job-spring-starter</artifactId>
 			<version>${libJobSpringStarter}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dionext</groupId>
+			<artifactId>lib-auth-spring-starter</artifactId>
+			<version>${libAuthSpringStarter}</version>
 		</dependency>
 
 		<!-- spring and common dependencies -->
@@ -98,6 +104,12 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 			<version>1.18.32</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>2.0.2</version>
 		</dependency>
 
 	</dependencies>

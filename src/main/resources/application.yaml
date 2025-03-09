@@ -29,6 +29,21 @@ spring:
             scope:
               - email
               - profile
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "hiking4land@gmail.com"
+    #password: sdetu789obvD
+    #dionextweb
+    password: "borl bbzz eeld kqrg"
+    #password: "borlbbzzeeldkqrg"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   ai:
     openai:
       api-key: "UNIT_TEST_KEY"
@@ -222,5 +237,6 @@ web-config:
 google.recaptcha:
   site-key: "6Lfu0-4qAAAAAM7m-V2ZZ9GSb-oaxOoR1fbXTVUX"
   secret-key: "6Lfu0-4qAAAAAHkM2WYG2Dmap1Ksy8FkuLKRHV6y"
+
 
 
