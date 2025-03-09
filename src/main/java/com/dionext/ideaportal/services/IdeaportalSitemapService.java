@@ -2,7 +2,6 @@ package com.dionext.ideaportal.services;
 
 import com.dionext.configuration.CacheConfiguration;
 import com.dionext.site.dto.PageUrl;
-import com.dionext.site.services.PageParserService;
 import com.dionext.site.services.SitemapService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class IdeaportalSitemapService {
 
     private AuthorCreatorService authorCreatorService;
     private TopicCreatorService topicCreatorService;
-    private CiteCreatorService citeCreatorService;
-    private BibliographyCreatorService bibliographyCreatorService;
 
     @Autowired
     public void setSitemapService(SitemapService sitemapService) {
@@ -45,15 +42,6 @@ public class IdeaportalSitemapService {
         this.topicCreatorService = topicCreatorService;
     }
 
-    @Autowired
-    public void setCiteCreatorService(CiteCreatorService citeCreatorService) {
-        this.citeCreatorService = citeCreatorService;
-    }
-
-    @Autowired
-    public void setBibliographyCreatorService(BibliographyCreatorService bibliographyCreatorService) {
-        this.bibliographyCreatorService = bibliographyCreatorService;
-    }
 
     @Cacheable(CacheConfiguration.CACHE_COMMON)
     public String createSitemap(boolean langSupport) {

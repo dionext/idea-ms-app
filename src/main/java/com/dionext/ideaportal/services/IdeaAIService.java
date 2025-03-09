@@ -106,7 +106,7 @@ public class IdeaAIService {
                 return items;
 
         });
-        jobBatchRunner.setJobBatchIdExtractor((jobInstance, item) -> ((Cite)item).getId().toString());
+        jobBatchRunner.setJobBatchIdExtractor((_, item) -> ((Cite)item).getId().toString());
         jobBatchRunner.setJobBatchItemProcessor((jobInstance, item) -> {
             Long aiModelId = Long.valueOf(jobInstance.getParameter("aiModelId"));
             Long aiPromptId = Long.valueOf(jobInstance.getParameter("aiPromptId"));
