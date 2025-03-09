@@ -14,6 +14,10 @@ import java.util.stream.Stream;
 @Setter
 @Entity
 public class User {
+
+    final public static String ROLE_USER = "USER";
+    final public static String ROLE_ADMIN = "ADMIN";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,7 +52,7 @@ public class User {
         this.email = email;
         this.provider = provider;
         this.providerId = providerId;
-        this.roles = "USER";
+        this.roles = ROLE_USER;
         this.password = "{noop}"; // No password for OAuth2 users
     }
 

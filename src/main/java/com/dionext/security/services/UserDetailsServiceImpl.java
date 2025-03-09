@@ -4,6 +4,7 @@ import com.dionext.security.entity.User;
 import com.dionext.security.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,40 +24,38 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${d.user.password:unknown}")
+    String userPassword;
+    @Value("${d.admin.password:unknown}")
+    String adminPassword;
+
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @PostConstruct
     void postConstruct() {
-        List<User> users = userRepository.findAll();
-        if (users.size() == 0) {
+        //List<User> users = userRepository.findAll();
 
-            User user = new User();
+        User user = userRepository.findByUsername("user").orElse(null);
+        if (user == null) {
+            user = new User();
             user.setUsername("user");
-            //user.setPassword(new BCryptPasswordEncoder().encode("user"));
-            user.setPassword("{noop}user");
-            user.setRoles("USER");
-            userRepository.save(user);
-
-            user = new User();
-            user.setUsername("admin1");
-            user.setPassword(bCryptPasswordEncoder.encode("admin1"));
-            user.setRoles("ADMIN");
-            userRepository.save(user);
-
-            user = new User();
-            user.setUsername("admin2");
-            user.setPassword(bCryptPasswordEncoder.encode("admin2"));
-            user.setRoles("ADMIN");
-            userRepository.save(user);
-
-            user = new User();
-            user.setUsername("admin");
-            user.setPassword("admin");
-            user.setRoles("ADMIN");
+            user.setPassword(new BCryptPasswordEncoder().encode(userPassword));
+            //user.setPassword("{noop}user");
+            user.setRoles(User.ROLE_USER);
             userRepository.save(user);
         }
+
+        user = userRepository.findByUsername("admin").orElse(null);
+        if (user == null) {
+            user = new User();
+            user.setUsername("admin");
+            user.setPassword(bCryptPasswordEncoder.encode(adminPassword));
+            user.setRoles(User.ROLE_ADMIN);
+            userRepository.save(user);
+        }
+
     }
 
 
@@ -89,7 +88,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(bCryptPasswordEncoder.encode(password));
-        User.setRolesList(user, Collections.singleton("USER")); // По умолчанию роль USER
+        User.setRolesList(user, Collections.singleton(User.ROLE_USER)); // По умолчанию роль USER
         userRepository.save(user);
     }
 
