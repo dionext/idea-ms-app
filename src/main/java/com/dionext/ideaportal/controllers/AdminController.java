@@ -1,7 +1,7 @@
 package com.dionext.ideaportal.controllers;
 
 
-import com.dionext.ideaportal.services.SecurityUtils;
+import com.dionext.libauthspringstarter.com.dionext.security.services.SecurityUtils;
 import com.dionext.site.controllers.BaseSiteController;
 import com.dionext.site.dto.SrcPageContent;
 import com.dionext.site.services.AdminService;

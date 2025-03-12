@@ -29,7 +29,17 @@ spring:
             scope:
               - email
               - profile
-
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   ai:
     openai:
@@ -220,7 +230,21 @@ web-config:
         #- item:
         #  key: "ideaportal.menu.links"
         #  url: "links.htm"
+      - item:
+        key: "menu.admin"
+        url: "#"
+        roles:
+          - "ADMIN"
+        subitems:
+          - item:
+            key: "menu.admin.main"
+            url: "/admin/main"
+          - item:
+            key: "menu.admin.job.index"
+            url: "/admin/job/index"
 
-
+google.recaptcha:
+  site-key: ${GOOGLE_RECAPTCHA_SITE_KEY}
+  secret-key: ${GOOGLE_RECAPTCHA_SECRET_KEY}
 
 

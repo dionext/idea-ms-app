@@ -31,6 +31,9 @@ public class Cite {
     @Column(columnDefinition="TEXT")
     public String text;
 
+    @Column(columnDefinition="TEXT")
+    public String info;
+
     @ManyToOne()
     @JoinColumn(name = "literature_id")
     public Bibliography bibliography;

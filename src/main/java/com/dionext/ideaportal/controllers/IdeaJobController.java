@@ -44,7 +44,7 @@ public class IdeaJobController extends BaseSiteController {
         return sendOk(adminService.createHtmlAll(JobView.makeJobList(jobManager)));
     }
 
-    @PostMapping("/job/run")
+    @PostMapping("/admin/job/run")
     public ResponseEntity<String> jobRun(@RequestParam(value = JobManager.JOB_TYPE_ID) String jobTypeId,
                                          @RequestParam(value = JobManager.JOB_ID, required = false) String jobId,
                                          @RequestParam Map<String, String> requestParams
@@ -57,26 +57,26 @@ public class IdeaJobController extends BaseSiteController {
         return sendFragment(JobView.makeJobBlock(jobManager, jobService, jobTypeId, jobInstance));
     }
 
-    @GetMapping("/job/info")
+    @GetMapping("/admin/job/info")
     public ResponseEntity<String> jobInfo(@RequestParam(required = false, value = JobManager.JOB_TYPE_ID) String jobTypeId,
                                           @RequestParam(required = false, value = JobManager.JOB_ID) String jobId) {
         return sendOk(adminService.createHtmlAll(JobView.makeJobInfoBlock(jobManager, jobService, jobTypeId, jobId)));
     }
 
-    @GetMapping("/job/completed")
+    @GetMapping("/admin/job/completed")
     public ResponseEntity<String> job(@RequestParam(value = JobManager.JOB_ID) String jobId) throws Exception {
         JobInstance jobInstance = jobManager.getJobInstance(jobId);
         return sendFragment(JobView.makeJobBlock(jobManager, jobService, jobInstance.getJobTypeId(), jobInstance));
     }
 
-    @PostMapping("/job/cancel")
+    @PostMapping("/admin/job/cancel")
     public ResponseEntity<String> jobCancel(@RequestParam(value = JobManager.JOB_ID) String jobId) throws Exception {
         JobInstance jobInstance = jobManager.getJobInstance(jobId);
         jobManager.cancelJob(jobId);
         return sendFragment(JobView.makeCanceledJobResult(jobInstance));
     }
 
-    @GetMapping("/job/progress")
+    @GetMapping("/admin/job/progress")
     public ResponseEntity<String> jobProgress(@RequestParam(value = JobManager.JOB_ID) String jobId) throws Exception {
         JobInstance jobInstance = jobManager.getJobInstance(jobId);
         return sendFragment(JobView.makeProgressJobBlock(jobInstance), JobView.makeJobProgressHeaders(jobInstance));

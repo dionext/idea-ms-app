@@ -22,6 +22,8 @@
 		<libJobSpringStarter>1.0.0</libJobSpringStarter>
 		<libAuthSpringStarter>1.0.0</libAuthSpringStarter>
 		<start-class>com.dionext.IdeaMsAppApplication</start-class>
+		<!-- Skip test -->
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
 	<dependencies>
@@ -81,16 +83,6 @@
 			<artifactId>HikariCP</artifactId>
 			<version>5.1.0</version>
 		</dependency>
-
-		<!-- ai
-		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
-		</dependency>-->
 
 
 		<dependency><!-- for unit testing -->

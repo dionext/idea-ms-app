@@ -10,6 +10,7 @@ import com.dionext.ai.services.AIRequestService;
 import com.dionext.ideaportal.db.entity.*;
 import com.dionext.ideaportal.db.repositories.CiteRepository;
 import com.dionext.ideaportal.db.repositories.ProeRepository;
+import com.dionext.libauthspringstarter.com.dionext.security.services.SecurityUtils;
 import com.dionext.site.dto.SrcPageContent;
 import com.dionext.utils.exceptions.DioRuntimeException;
 import com.google.common.base.Strings;
@@ -205,9 +206,9 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
                       <div class="card-body">
                       """);
             str.append(createCiteTextInnerBlock(item));
-            createInfoHref(item, str);
             createAuthorPBlock(item, str);
             createAIExplorationBlock(item, str);
+            createInfoHref(item, str);
             str.append("""
                         </p>
                       </div>
@@ -233,7 +234,7 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
         str.append("""
                     ">
                     """);
-        str.append("Информация");
+        str.append("Доп. информация по афоризму");
         str.append("""
                     </a>
                     """);
@@ -296,16 +297,32 @@ public class CiteCreatorService extends IdeaportalPageCreatorService {
     }
 
     private void createAIExplorationBlock(Cite item, StringBuilder str) {
-        Collection<AiRequest>  aiRequests = aiRequestRepository.findByExternalDomainAndExternalEntityAndExternalVariantAndExternalId(
-                Cite.IDEA, Cite.CITE, Cite.CITE_EXP, item.getId().toString());
-        if (!aiRequests.isEmpty()) {
-            str.append("<p><i><b>Oбъяснение афоризма: </b></i></p>");
-            int i = 1;
-            for (AiRequest aiRequest : aiRequests) {
-                str.append("<hr/>");
-                createAIInfoBlock(str, aiRequest, i);
-                str.append("<i>" + aiRequest.getResult().replace("\n", "<br/>") + "</i>");
-                i++;
+        if (true){
+            if (item.getInfo() != null) {
+                str.append("""
+                    <div class="container bg-light" >
+                    """);
+                str.append("<p><i><b>Oбъяснение афоризма: </b></i></p>");
+                str.append("<i>");
+                str.append(item.getInfo());
+                str.append("</i>");
+                str.append("""
+                    </div>
+                    """);
+            }
+        }
+        else {
+            Collection<AiRequest> aiRequests = aiRequestRepository.findByExternalDomainAndExternalEntityAndExternalVariantAndExternalId(
+                    Cite.IDEA, Cite.CITE, Cite.CITE_EXP, item.getId().toString());
+            if (!aiRequests.isEmpty()) {
+                str.append("<p><i><b>Oбъяснение афоризма: </b></i></p>");
+                int i = 1;
+                for (AiRequest aiRequest : aiRequests) {
+                    str.append("<hr/>");
+                    createAIInfoBlock(str, aiRequest, i);
+                    str.append("<i>" + aiRequest.getResult().replace("\n", "<br/>") + "</i>");
+                    i++;
+                }
             }
         }
     }

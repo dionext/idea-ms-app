@@ -24,6 +24,7 @@ public class IdeaJobService extends BaseJobService implements JobService {
         jobManager.addJobType("executeSimpleJobWithError", "Запуск простого тестового задания с ошибкой");
         jobManager.addJobType("citeExplanation", "Запрос объяснения цитат");
         jobManager.addJobType("testSingle", "Тестовый одиночный запрос");
+        jobManager.addJobType("citeInfoCopy", "Копирование информации из таблицы ИИ запросов в таблицу цитат");
     }
 
 
@@ -87,8 +88,8 @@ public class IdeaJobService extends BaseJobService implements JobService {
                 }
             });
             return jobBatchRunner;
-        } else if ("citeExplanation".equals(jobTypeId)){
-            JobBatchRunner jobBatchRunner = ideaAIService.createJob(_jobInstance);
+        } else if ("citeExplanation".equals(jobTypeId) || "citeInfoCopy".equals(jobTypeId)){
+            JobBatchRunner jobBatchRunner = ideaAIService.createJob(jobTypeId, _jobInstance);
             return jobBatchRunner;
         } else if ("testSingle".equals(jobTypeId)){
             JobSingleRunner jobSingleRunner = new BaseJobSingleRunner();

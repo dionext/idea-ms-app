@@ -4,12 +4,14 @@ import com.dionext.ai.entity.AiLogInfo;
 import com.dionext.ai.entity.AiPrompt;
 import com.dionext.ai.entity.AiRequest;
 import com.dionext.ai.repositories.AiPromptRepository;
+import com.dionext.ai.repositories.AiRequestRepository;
 import com.dionext.ai.services.AIRequestService;
 import com.dionext.ai.utils.DbLoggerAdvisor;
 import com.dionext.ideaportal.db.entity.Cite;
 import com.dionext.ideaportal.db.repositories.CiteRepository;
 import com.dionext.job.*;
 import com.dionext.job.entity.JobInstance;
+import com.dionext.utils.CmMarkdownUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -40,6 +42,9 @@ public class IdeaAIService {
     protected JobManager jobManager;
     @Autowired
     private CiteRepository citeRepository;
+    @Autowired
+    private AiRequestRepository aiRequestRepository;
+
 
     @PostConstruct
     void postConstruct() {
@@ -77,50 +82,93 @@ public class IdeaAIService {
                             readOnly));
             str.append(
                     JobView.createRunJobParameter("aiModelId", "Id model",
-                            jobInstance != null ? jobInstance.getParameter("aiModelId") : "2",
+                            jobInstance != null ? jobInstance.getParameter("aiModelId") : "4",
                             readOnly));
             str.append(
                     JobView.createRunJobParameter("aiPromptId", "Id Prompt",
                             jobInstance != null ? jobInstance.getParameter("aiPromptId") : "1",
                             readOnly));
         }
+        else if ("citeInfoCopy".equals(jobTypeId)) {
+            str.append(
+                    JobView.createRunJobParameter("countType", "Тип количества позиций",
+                            jobInstance != null ? jobInstance.getParameter("countType") : CountType.ALL.name(),
+                            readOnly));
+            str.append(
+                    JobView.createRunJobParameter("isOverrideRequest", "Перезаписывать ранее сохраненные запросы",
+                            jobInstance != null ? jobInstance.getParameter("isOverrideRequest") : "false",
+                            readOnly));
+
+        }
 
         return str.toString();
     }
 
-    public JobBatchRunner createJob(JobInstance _jobInstance) throws InterruptedException {
+    public JobBatchRunner createJob(String jobTypeId, JobInstance _jobInstance) throws InterruptedException {
         JobBatchRunner jobBatchRunner = new BaseJobBatchRunner();
-        jobBatchRunner.setJobBatchListMaker((jobInstance) -> {
-            CountType countType = CountType.valueOf(jobInstance.getParameter("countType"));
-            boolean isTop = Boolean.parseBoolean(jobInstance.getParameter("isTop"));
-            Collection<Cite> items;
-            if (isTop)
-                items = citeRepository.findAllFavorite();
-            else
-                items = citeRepository.findAll();
-            if (countType == CountType.ONE)
-                return items.stream().limit(1).collect(Collectors.toList());
-            else if (countType == CountType.TEN)
-                return items.stream().limit(10).collect(Collectors.toList());
-            else //if (countType == CountType.ALL)
-                return items;
 
-        });
-        jobBatchRunner.setJobBatchIdExtractor((_, item) -> ((Cite)item).getId().toString());
-        jobBatchRunner.setJobBatchItemProcessor((jobInstance, item) -> {
-            Long aiModelId = Long.valueOf(jobInstance.getParameter("aiModelId"));
-            Long aiPromptId = Long.valueOf(jobInstance.getParameter("aiPromptId"));
-            boolean isOverrideRequest = Boolean.parseBoolean(jobInstance.getParameter("isOverrideRequest"));
-            Cite cite = (Cite)item;
+        if ("citeInfoCopy".equals(jobTypeId)) {
+            jobBatchRunner.setJobBatchListMaker((jobInstance) -> {
+                CountType countType = CountType.valueOf(jobInstance.getParameter("countType"));
 
-            Optional<AiRequest> aiRequest = aiRequestService.findByExternalDomainAndExternalEntityAndExternalVariantAndExternalIdAndAiModelIdAndAiPromptId(
-                    Cite.IDEA, Cite.CITE, Cite.CITE_EXP, cite.getId().toString(), aiModelId, aiPromptId).stream().findAny();
-            if (aiRequest.isEmpty() || isOverrideRequest) {
-                AiLogInfo aiLogInfo = aiRequestService.createAiLogInfo(aiModelId, aiPromptId,
-                        aiRequest.orElse(new AiRequest()));
-                citeExplanation(cite, aiLogInfo);
-            }
-        });
+                Collection<AiRequest>  items = aiRequestRepository.findByExternalDomainAndExternalEntityAndExternalVariant(
+                        Cite.IDEA, Cite.CITE, Cite.CITE_EXP);
+
+                if (countType == CountType.ONE)
+                    return items.stream().limit(1).collect(Collectors.toList());
+                else if (countType == CountType.TEN)
+                    return items.stream().limit(10).collect(Collectors.toList());
+                else //if (countType == CountType.ALL)
+                    return items;
+
+            });
+            jobBatchRunner.setJobBatchIdExtractor((_, item) -> ((AiRequest) item).getExternalId());
+
+            jobBatchRunner.setJobBatchItemProcessor((jobInstance, item) -> {
+                boolean isOverrideRequest = Boolean.parseBoolean(jobInstance.getParameter("isOverrideRequest"));
+                AiRequest aiRequest = (AiRequest) item;
+                Cite cite = citeRepository.findById(Integer.valueOf(aiRequest.getExternalId())).orElse(null);
+                if (cite != null && (cite.getInfo() == null || isOverrideRequest)){
+                    cite.setInfo(CmMarkdownUtils.markdownToHtml(aiRequest.getResult()));
+                    citeRepository.save(cite);
+                }
+            });
+        }
+        else {
+
+
+            jobBatchRunner.setJobBatchListMaker((jobInstance) -> {
+                CountType countType = CountType.valueOf(jobInstance.getParameter("countType"));
+                boolean isTop = Boolean.parseBoolean(jobInstance.getParameter("isTop"));
+                Collection<Cite> items;
+                if (isTop)
+                    items = citeRepository.findAllFavorite();
+                else
+                    items = citeRepository.findAll();
+                if (countType == CountType.ONE)
+                    return items.stream().limit(1).collect(Collectors.toList());
+                else if (countType == CountType.TEN)
+                    return items.stream().limit(10).collect(Collectors.toList());
+                else //if (countType == CountType.ALL)
+                    return items;
+
+            });
+            jobBatchRunner.setJobBatchIdExtractor((_, item) -> ((Cite) item).getId().toString());
+            jobBatchRunner.setJobBatchItemProcessor((jobInstance, item) -> {
+                Long aiModelId = Long.valueOf(jobInstance.getParameter("aiModelId"));
+                Long aiPromptId = Long.valueOf(jobInstance.getParameter("aiPromptId"));
+                boolean isOverrideRequest = Boolean.parseBoolean(jobInstance.getParameter("isOverrideRequest"));
+                Cite cite = (Cite) item;
+
+                Optional<AiRequest> aiRequest = aiRequestService.findByExternalDomainAndExternalEntityAndExternalVariantAndExternalIdAndAiModelIdAndAiPromptId(
+                        Cite.IDEA, Cite.CITE, Cite.CITE_EXP, cite.getId().toString(), aiModelId, aiPromptId).stream().findAny();
+                if (aiRequest.isEmpty() || isOverrideRequest) {
+                    AiLogInfo aiLogInfo = aiRequestService.createAiLogInfo(aiModelId, aiPromptId,
+                            aiRequest.orElse(new AiRequest()));
+                    citeExplanation(cite, aiLogInfo);
+                }
+            });
+        }
         return jobBatchRunner;
     }
     public String citeExplanation(Cite cite, AiLogInfo aiLogInfo) {
