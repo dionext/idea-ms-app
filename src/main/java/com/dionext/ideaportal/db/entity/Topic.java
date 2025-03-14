@@ -6,7 +6,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "theme")
+@Table(name = "topic")
 @Getter
 @Setter
 public class Topic {

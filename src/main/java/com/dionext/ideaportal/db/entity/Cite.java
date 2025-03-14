@@ -35,14 +35,14 @@ public class Cite {
     public String info;
 
     @ManyToOne()
-    @JoinColumn(name = "literature_id")
+    @JoinColumn(name = "bibliography_id")
     public Bibliography bibliography;
 
     @Column(length = 10)
     public String page;
 
     @ManyToOne()
-    @JoinColumn(name = "literature_alt_id")
+    @JoinColumn(name = "bibliography_alt_id")
     public Bibliography bibliographyAlt;
 
     @Column(name = "page_alt", length = 10)
@@ -59,9 +59,9 @@ public class Cite {
 
     @ManyToMany(fetch = FetchType.LAZY)//не извлекать связанные объекты из базы данных, пока вы их не используете
     @JoinTable(
-            name = "theme_cite",
+            name = "topic_cite",
             joinColumns = @JoinColumn(name = "cite_id"),
-            inverseJoinColumns = @JoinColumn(name = "theme_id"))
+            inverseJoinColumns = @JoinColumn(name = "topic_id"))
     public Set<Topic> topics;
 }
 

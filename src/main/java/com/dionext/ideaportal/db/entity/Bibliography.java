@@ -6,7 +6,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "literature")
+@Table(name = "bibliography")
 @Getter
 @Setter
 public class Bibliography {

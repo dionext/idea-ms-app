@@ -113,6 +113,8 @@ public class IdeaAIService {
 
                 Collection<AiRequest>  items = aiRequestRepository.findByExternalDomainAndExternalEntityAndExternalVariant(
                         Cite.IDEA, Cite.CITE, Cite.CITE_EXP);
+                //todo здесь ищутся все запросы, а надо или искать только по определенной модели и промпту
+                //или в функцию обработки добавить приоритезацию.
 
                 if (countType == CountType.ONE)
                     return items.stream().limit(1).collect(Collectors.toList());
